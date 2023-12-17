@@ -18,9 +18,13 @@ class UrlController extends Controller
         $this->urlService = $urlService;
     }
 
+    public function authUser(){
+        return Auth::user();
+    }
+
     public function index(Request $request){
         if ($request->ajax()) {
-            $data = $this->urlService->getList($request, Auth::user());
+            $data = $this->urlService->getList($request, $this->authUser());
             return $data;
         }
 
@@ -42,7 +46,7 @@ class UrlController extends Controller
                 return response()->json($response, 422); // 422 Unprocessable Entity - Validation error
             }
 
-            $data = $this->urlService->save($request, Auth::user());
+            $data = $this->urlService->save($request, $this->authUser());
             return $data;
         }
 
@@ -51,7 +55,7 @@ class UrlController extends Controller
 
     public function edit(Request $request, $slug){
         if ($request->ajax()) {
-            $data = $this->urlService->details($slug);
+            $data = $this->urlService->details($slug, $this->authUser());
             if (!$data) {
                 $response = [
                     'success' => 0,
@@ -67,13 +71,13 @@ class UrlController extends Controller
             return $response;
         }
 
-        return redirect(route('admin.url.index', Auth::user()));
+        return redirect(route('admin.url.index', $this->authUser()));
     }
 
 
     public function destroy(Request $request, $slug){
         if ($request->ajax()) {
-            $data = $this->urlService->details($slug);
+            $data = $this->urlService->details($slug, $this->authUser());
             if (!$data) {
                 $response = [
                     'success' => 0,
@@ -82,7 +86,7 @@ class UrlController extends Controller
                 return $response;
             }
 
-            $data = $this->urlService->destroy($slug, Auth::user());
+            $data = $this->urlService->destroy($slug, $this->authUser());
             return true;
         }
 

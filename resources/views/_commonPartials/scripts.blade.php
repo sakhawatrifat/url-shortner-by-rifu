@@ -1,7 +1,7 @@
 <script src="{{asset('backend/')}}/js/bundle.js?v={{time()}}"></script>
 <script src="{{asset('backend/')}}/js/scripts.js?v={{time()}}"></script>
 <script src="{{asset('backend/')}}/js/charts/chart-ecommerce.js?v={{time()}}"></script>
-
+<script src="{{asset('backend/')}}/js/jquery-ui.min.js?v={{time()}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -27,6 +27,8 @@
 <!-- Ckeditor -->
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/super-build/ckeditor.js"></script>
 {{-- <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script> --}}
+<!-- Double Scrollbar -->
+<script src="{{asset('backend')}}/js/jquery.doubleScroll.js"></script>
 
 <!-- Switch -->
 <script src="{{asset('backend')}}/js/bootstrap-switch.min.js"></script>
@@ -48,5 +50,9 @@
             icon: 'success',
             title: `Text copied "${text}"`
         });
+    });
+
+    $(document).ready(function(){
+       $('.double-scroll').doubleScroll();
     });
 </script>

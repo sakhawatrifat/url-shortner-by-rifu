@@ -58,10 +58,10 @@ class UrlService
         return $listData;
     }
 
-    public function save($request)
+    public function save($request, $user)
     {
         if(isset($request->slug)){
-            $myModel = $this->details($request->slug);
+            $myModel = $this->details($request->slug, $user);
             $myModel->slug = $request->slug;
             $myModel->generated_url = $request->generated_url ?? $myModel->generated_url;
         }else{
@@ -97,7 +97,7 @@ class UrlService
     public function destroy($slug, $user)
     {
         if($user->getTable() == 'users'){
-            $data = Url::whereUserId(Auth::user()->id)->whereSlug($slug)->delete();
+            $data = Url::whereUserId($user->id)->whereSlug($slug)->delete();
         }else{
             $data = Url::whereSlug($slug)->delete();
         }

@@ -1,6 +1,9 @@
 // Datatable
 setTimeout(function(){
     $('.data-table').closest('div').addClass('overflowX-auto');
+    $('.data-table').closest('div').addClass('double-scroll');
+
+    $('.double-scroll').doubleScroll();
 }, 1000);
 
 // Selecte2
