@@ -22,7 +22,7 @@
 		<div class="header-inner">
 		    <!-- Logo -->
 		    <div class="logo-box">
-		        <a href="html/index.html" class="logo-link">
+		        <a href="{{route('home')}}" class="logo-link">
 	                <img class="logo-img" src="{{asset('logo.png')}}" srcset="{{asset('logo.png')}}" alt="logo">
 	            </a>
 		    </div>

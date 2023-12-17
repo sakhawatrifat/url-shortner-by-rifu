@@ -11,9 +11,9 @@ use Auth;
 class UrlService
 {
 
-    public function getList($request)
+    public function getList($request, $user = null)
     {
-        if(Auth::user()){
+        if($user->getTable() == 'users'){
             $data = Url::whereUserId(Auth::user()->id)->select('*');
         }else{
             $data = Url::select('*');
@@ -27,14 +27,14 @@ class UrlService
                 return $row->user ? $row->user->name : 'Unknown';
             })
             ->addColumn('original_url', function($row){
-                return strlen($row->getRawOriginal('original_url')) > 40 ? substr($row->getRawOriginal('original_url'), 0, 40) . '....' : substr($row->getRawOriginal('original_url'), 0, 40);
+                return strlen($row->getRawOriginal('original_url')) > 25 ? substr($row->getRawOriginal('original_url'), 0, 25) . '....' : substr($row->getRawOriginal('original_url'), 0, 25);
             })
             ->addColumn('generated_url', function($row){
                 $generatedUrl = getBaseURL().$row->generated_url;
-                return strlen($generatedUrl) > 30 ? substr($generatedUrl, 0, 30) . '....' : substr($generatedUrl, 0, 30);
+                return strlen($generatedUrl) > 25 ? substr($generatedUrl, 0, 25) . '....' : substr($generatedUrl, 0, 25);
             })
-            ->addColumn('action', function($row){
-                if(Auth::user()){
+            ->addColumn('action', function($row) use($user){
+                if($user->getTable() == 'users'){
                     $data = Url::whereUserId(Auth::user()->id)->select('*');
                     $editRoute = route('user.url.edit', $row->slug);
                     $destroyRoute = route('user.url.destroy', $row->slug);
@@ -44,8 +44,8 @@ class UrlService
                     $destroyRoute = route('admin.url.destroy', $row->slug);
                 }
                 $btn = '<div class="dt-table-btn-wrap">';
-                $btn .= '<a title"Browse" class="browse-url-btn dt-table-btn mx-1 mb-1 btn btn-secondary btn-sm" target="_blank" href="'.getBaseURL().$row->generated_url.'"><em class="text-light icon ni ni-globe"></em></a>';
-                $btn .= '<a title="Copy Generated Url" class="copy-data-text-btn dt-table-btn mb-1 btn btn-info btn-sm" data-text="'.getBaseURL().$row->generated_url.'"><em class="text-light icon ni ni-copy"></em></a>';
+                $btn .= '<a title"Browse" class="browse-url-btn dt-table-btn mx-1 mb-1 btn btn-secondary btn-sm" target="_blank" href="'.url($row->generated_url).'"><em class="text-light icon ni ni-globe"></em></a>';
+                $btn .= '<a title="Copy Generated Url" class="copy-data-text-btn dt-table-btn mb-1 btn btn-info btn-sm" data-text="'.url($row->generated_url).'"><em class="text-light icon ni ni-copy"></em></a>';
                 $btn .= '<a title"Edit" class="edit-data-btn dt-table-btn mx-1 mb-1 btn btn-primary btn-sm" onclick="loadModal(\''.$editRoute.'\', \''.$row->slug.'\')"><em class="text-light icon ni ni-edit-alt"></em></a>';
                 $btn .= '<a title"Delete" class="delete-data-btn dt-table-btn mb-1 btn btn-danger btn-sm" delete-url="'.$destroyRoute.'"><em class="text-light icon ni ni-trash-alt"></em></a>';
                 $btn .= '</div>';
@@ -83,9 +83,9 @@ class UrlService
         }
     }
 
-    public function details($slug)
+    public function details($slug , $user)
     {
-        if(Auth::user()){
+        if($user->getTable() == 'users'){
             $data = Url::whereUserId(Auth::user()->id)->whereSlug($slug)->first();
         }else{
             $data = Url::whereSlug($slug)->first();
@@ -94,9 +94,9 @@ class UrlService
         return $data;
     }
 
-    public function destroy($slug)
+    public function destroy($slug, $user)
     {
-        if(Auth::user()){
+        if($user->getTable() == 'users'){
             $data = Url::whereUserId(Auth::user()->id)->whereSlug($slug)->delete();
         }else{
             $data = Url::whereSlug($slug)->delete();

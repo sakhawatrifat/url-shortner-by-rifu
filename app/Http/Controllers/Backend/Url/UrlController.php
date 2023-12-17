@@ -7,6 +7,7 @@ use App\Services\Url\UrlService;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Url;
+use Auth;
 
 class UrlController extends Controller
 {
@@ -19,10 +20,9 @@ class UrlController extends Controller
 
     public function index(Request $request){
         if ($request->ajax()) {
-            $data = $this->urlService->getList($request);
+            $data = $this->urlService->getList($request , Auth::guard('admin')->user());
             return $data;
         }
-
         $users = User::get();
         return view('backend.url.index', get_defined_vars());
     }
@@ -41,7 +41,7 @@ class UrlController extends Controller
                 return response()->json($response, 422); // 422 Unprocessable Entity - Validation error
             }
 
-            $data = $this->urlService->save($request);
+            $data = $this->urlService->save($request, Auth::guard('admin')->user());
             return $data;
         }
 
@@ -50,7 +50,7 @@ class UrlController extends Controller
 
     public function edit(Request $request, $slug){
         if ($request->ajax()) {
-            $data = $this->urlService->details($slug);
+            $data = $this->urlService->details($slug, Auth::guard('admin')->user());
             if (!$data) {
                 $response = [
                     'success' => 0,
@@ -72,7 +72,7 @@ class UrlController extends Controller
 
     public function destroy(Request $request, $slug){
         if ($request->ajax()) {
-            $data = $this->urlService->details($slug);
+            $data = $this->urlService->details($slug, Auth::guard('admin')->user());
             if (!$data) {
                 $response = [
                     'success' => 0,

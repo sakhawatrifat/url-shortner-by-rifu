@@ -4,7 +4,7 @@
             <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
         </div>
         <div class="nk-header-brand d-xl-none">
-            <a href="html/index.html" class="logo-link">
+            <a href="{{route('home')}}" class="logo-link">
                 <img class="logo-img" src="{{asset('logo.png')}}" srcset="{{asset('logo.png')}}" alt="logo">
             </a>
         </div><!-- .nk-header-brand -->
@@ -66,7 +66,7 @@
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form></li>
                             </ul>
