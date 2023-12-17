@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "65289fb4-bf78-4521-aa98-1cf7f4d87928",
+		"name": "Url Shortner By Rifu",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26080249"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Sakhawat Rifat",
+									"description": "required|max:255",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rifu@gmail.com",
+									"description": "required|email:unique:users,email",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "rifu@0000",
+									"description": "required|min:8|max:255",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "rifu@0000",
+									"description": "required|min:8|max:255|same:password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/register",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "rifu@gmail.com",
+									"description": "required|email",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "rifu@0000",
+									"description": "required|min:8|max:255",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Url",
+			"item": [
+				{
+					"name": "Save/Update Url",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTY1NWFmYTE0MjUwM2QzZDczYmY0NWM0ZGZiNTAxNTAzZGMwMDQ0MGQwNzYyODdhNTA0MGU2ZGVkNGM0ZDUzMDIyYjBjMmViODk3Y2FjODIiLCJpYXQiOjE3MDI3OTY1ODUuMDk4MjMyLCJuYmYiOjE3MDI3OTY1ODUuMDk4MjM4LCJleHAiOjE3MzQ0MTg5ODUuMDg3NjI3LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OIxb30HWCko2cxKd2uTTKIxLv8OHfxKGynDChIqv2ncuoVeHUUU_ra2yz1UdodW8jbau8MsyJu1hV3Av1tkSOpKa5mvMt9Zzg6hODUIQJ6PtMrN9qgKUxcPAijPZn3BXb_MTF0rtT9198GHJ1h2EkkRyIKOZKYpzSAG0sD7vRKOvHQ-qVzHmc0K_u0qge0i1hxetIWiguC6n-4WQYqgiJ2G6MHB3h5X68LaETTYLjlB2PuJKTZMxX6q0m7xkF12NcV6yreH-Ylfgi0Tfuw9DE_eDo3mKXzGnwQXd0BGW97p7O0CSjBHRimzNhVjoOgE9xHq-4KAI4Zw8lDwta6c5ChJcisP-0dROfYs5tN1gz3A6TqfFRJkHqyJJpXEFbJHSNe9u1TlMrKHoHDYEZ4zjhBuJQzQXv7uxZXvVioM2-PZSDdk2x2LJCjp04UOT0j80xh87_3pwJAdx2LVyNwKGgUyNaD_jKVJioyeJM4A6p22IYb6p80Qb0MQY6YyRYAJymtVhcewv3ay6-k1emnoodjvI93YXJ_oochyQ14v2TgmnPhgspJCzJ-e7fXZ_GaDlHWBc16QO9kQBw7YpFsfi0Xj6Un-_ke2yP10qXDWQ12Tveth9BPnIb_K5gFy9aZAkqMAyAjzPHHSyoTgaTvBoP00lmoVowCRgBp3eNavIzkw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "slug",
+									"value": "1234567890",
+									"description": "//Pass Slug For Update",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "original_url",
+									"value": "https://github.com/sakhawatrifat",
+									"description": "required|valid_url",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/url/save",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"url",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
